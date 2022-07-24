@@ -4,11 +4,11 @@ import { validateSchemaMiddleware } from "../middlewares/validateSchemaMiddlewar
 import { defaultSchema } from "../schemas/defaultSchema.js";
 const defaultRouter = Router();
 
-defaultRouter.get("/", defaultController.defaultGet);
-defaultRouter.post(
-	"/",
-	validateSchemaMiddleware(defaultSchema),
-	defaultController.defaultPost
-);
+// defaultRouter.get("/", defaultController.defaultGet);
+// defaultRouter.post(
+// 	"/",
+// 	validateSchemaMiddleware(defaultSchema),
+// 	defaultController.defaultPost
+// );
 
 export default defaultRouter;
