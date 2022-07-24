@@ -15,4 +15,11 @@ async function FindByEmail(email: string) {
   return result;
 }
 
-export default { Insert, FindByEmail };
+async function FindById(id: number) {
+  const result = await prisma.users.findUnique({
+    where: { id },
+  });
+  return result;
+}
+
+export default { Insert, FindByEmail, FindById };

@@ -38,4 +38,8 @@ async function authenticateUser(user: UserSigninType) {
   return token;
 }
 
-export default { createAndVerifyNewUser, authenticateUser };
+async function findUserById(id: number) {
+  const user = await userRepositories.FindById(id);
+  return user;
+}
+export default { createAndVerifyNewUser, authenticateUser, findUserById };
