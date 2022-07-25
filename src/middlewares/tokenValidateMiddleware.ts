@@ -15,7 +15,7 @@ export async function tokenvalidateMiddleware(
     const { userId } = jwt.verify(token, process.env.JWT_SECRET) as {
       userId: number;
     };
-    const user = userServices.findUserById(userId);
+    const user = await userServices.findUserById(userId);
     res.locals = { ...res.locals, user };
     next();
   } catch (error) {
