@@ -9,12 +9,37 @@ async function CreateCredential(req: Request, res: Response) {
     password: req.body.password,
     userId: res.locals.user.id,
   } as CredentialType;
-  //   console.log(res.locals.user.id);
 
   await credentialServices.createAndVerifyNewUser(credential);
   res.send(201);
 }
 
+async function SearchById(req: Request, res: Response) {
+  const id = parseInt(req.params.id);
+  const userId = res.locals.user.id;
+  const credential = await credentialServices.SearchByIdAndCompareUser(
+    userId,
+    id
+  );
+
+  res.status(200).send(credential);
+}
+
+async function SearchAllByUser(req: Request, res: Response) {
+  const userId = res.locals.user.id;
+  const credentials = await credentialServices.SearchAllByUser(userId);
+  res.send(credentials);
+}
+
+async function DeleteById(req: Request, res: Response) {
+  const userId = res.locals.user.id;
+  const id = parseInt(req.params.id);
+  await credentialServices.DeleteByIdAndCompareUser(id, userId);
+  res.status(200).send("deleted");
+}
 export default {
   CreateCredential,
+  SearchById,
+  SearchAllByUser,
+  DeleteById,
 };

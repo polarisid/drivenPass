@@ -12,4 +12,21 @@ credentialRouter.post(
   credentialController.CreateCredential
 );
 
+credentialRouter.get(
+  "/credentials",
+  tokenvalidateMiddleware,
+  credentialController.SearchAllByUser
+);
+
+credentialRouter.get(
+  "/credentials/:id",
+  tokenvalidateMiddleware,
+  credentialController.SearchById
+);
+
+credentialRouter.delete(
+  "/credentials/:id",
+  tokenvalidateMiddleware,
+  credentialController.DeleteById
+);
 export default credentialRouter;

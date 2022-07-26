@@ -1,5 +1,4 @@
 import { prisma } from "../database.js";
-import { credentials } from "@prisma/client";
 import { CredentialType } from "../types/credentialTypes.js";
 
 async function Insert(credential: CredentialType) {
@@ -8,6 +7,7 @@ async function Insert(credential: CredentialType) {
   });
   return result;
 }
+
 async function FindByNameAndUser(name: string, userId: number) {
   const result = await prisma.credentials.findMany({
     where: { AND: [{ userId }, { name }] },
@@ -15,4 +15,31 @@ async function FindByNameAndUser(name: string, userId: number) {
   return result;
 }
 
-export default { Insert, FindByNameAndUser };
+async function FindById(id: number) {
+  const result = await prisma.credentials.findUnique({
+    where: { id },
+  });
+  return result;
+}
+
+async function FindByUserId(userId: number) {
+  const result = await prisma.credentials.findMany({
+    where: { userId },
+  });
+  return result;
+}
+
+async function DeleteById(id: number) {
+  const result = await prisma.credentials.delete({
+    where: { id },
+  });
+  return result;
+}
+
+export default {
+  Insert,
+  FindByNameAndUser,
+  FindById,
+  FindByUserId,
+  DeleteById,
+};

@@ -29,3 +29,7 @@ model credentials {
 }
 
 
+model notes {
+    id        Int    @id  @default(autoincrement())
+
+}
