@@ -10,7 +10,7 @@ async function CreateCredential(req: Request, res: Response) {
     userId: res.locals.user.id,
   } as CredentialType;
 
-  await credentialServices.createAndVerifyNewUser(credential);
+  await credentialServices.createAndVerifyNewByUser(credential);
   res.send(201);
 }
 

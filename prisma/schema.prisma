@@ -15,6 +15,9 @@ model users{
   email    String @unique
   password String
   credentials credentials[]
+  notes notes[]
+  cards cards[]
+  wifi  wifi[]
 }
 
 
@@ -30,6 +33,35 @@ model credentials {
 
 
 model notes {
-    id        Int    @id  @default(autoincrement())
+  id          Int    @id  @default(autoincrement())
+  name        String 
+  annotation  String
+  userId      Int
+  users       users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
 
+model cards {
+  id          Int    @id  @default(autoincrement())
+  number      String 
+  name        String
+  cvv         String
+  password    String
+  type        Type
+  userId      Int
+  users       users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model wifi{
+  id          Int    @id  @default(autoincrement()) 
+  ssid        String
+  password    String
+  name        String
+  userId      Int
+  users       users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum Type{
+  debit
+  credit
+  both
 }

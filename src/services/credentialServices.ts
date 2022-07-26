@@ -9,12 +9,11 @@ import {
 
 const cryptr = new Cryptr(process.env.CRYPTR_KEY);
 
-async function createAndVerifyNewUser(credential: CredentialType) {
+async function createAndVerifyNewByUser(credential: CredentialType) {
   const credentialExists = await credentialsRepositories.FindByNameAndUser(
     credential.name,
     credential.userId
   );
-  console.log(credentialExists);
   if (credentialExists.length > 0)
     throw conflictError("CredentialName already exists in database");
   const encryptedPassword = cryptr.encrypt(credential.password);
@@ -29,7 +28,7 @@ async function SearchByIdAndCompareUser(userId: number, id: number) {
   const credentialExists = await credentialsRepositories.FindById(id);
   if (!credentialExists) throw notFoundError("Not found");
   if (credentialExists.userId !== userId)
-    throw conflictError("You are not Owner");
+    throw unauthorizedError("You are not Owner");
 
   const decryptedPassword = cryptr.decrypt(credentialExists.password);
   const credentialDecrypt = {
@@ -52,13 +51,14 @@ async function SearchAllByUser(userId: number) {
 async function DeleteByIdAndCompareUser(id: number, userId: number) {
   const credential = await credentialsRepositories.FindById(id);
   if (!credential) throw notFoundError("Not found");
-  if (credential.userId !== userId) throw conflictError("You are not Owner");
+  if (credential.userId !== userId)
+    throw unauthorizedError("You are not Owner");
   await credentialsRepositories.DeleteById(id);
   return;
 }
 
 export default {
-  createAndVerifyNewUser,
+  createAndVerifyNewByUser,
   SearchByIdAndCompareUser,
   SearchAllByUser,
   DeleteByIdAndCompareUser,
