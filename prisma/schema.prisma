@@ -41,14 +41,17 @@ model notes {
 }
 
 model cards {
-  id          Int    @id  @default(autoincrement())
-  number      String 
-  name        String
-  cvv         String
-  password    String
-  type        Type
-  userId      Int
-  users       users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id              Int    @id  @default(autoincrement())
+  number          String 
+  name            String
+  cvv             String
+  expirationDate  DateTime
+  title           String
+  password        String
+  type            Type
+  userId          Int
+  virtual         Boolean @default(false)
+  users           users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model wifi{
