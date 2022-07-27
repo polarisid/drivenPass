@@ -6,22 +6,26 @@ import cardSchema from "../schemas/cardSchema.js";
 const cardRouter = Router();
 
 cardRouter.post(
-  "/card",
+  "/cards",
   validateSchemaMiddleware(cardSchema.CardSchema),
   tokenvalidateMiddleware,
   cardController.CreateCard
 );
 
 cardRouter.get(
-  "/card",
+  "/cards",
   tokenvalidateMiddleware,
   cardController.SearchAllByUser
 );
 
-cardRouter.get("/card/:id", tokenvalidateMiddleware, cardController.SearchById);
+cardRouter.get(
+  "/cards/:id",
+  tokenvalidateMiddleware,
+  cardController.SearchById
+);
 
 cardRouter.delete(
-  "/card/:id",
+  "/cards/:id",
   tokenvalidateMiddleware,
   cardController.DeleteById
 );

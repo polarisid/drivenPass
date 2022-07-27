@@ -4,12 +4,12 @@ import { NotesType } from "../types/noteTypes.js";
 async function CreateNote(req: Request, res: Response) {
   const note = {
     name: req.body.name.toLowerCase(),
-    annotation: req.body.login,
+    annotation: req.body.annotation,
     userId: res.locals.user.id,
   } as NotesType;
 
   await notesServices.createAndVerifyNewByUser(note);
-  res.send(201);
+  res.sendStatus(201);
 }
 
 async function SearchById(req: Request, res: Response) {
@@ -23,7 +23,7 @@ async function SearchById(req: Request, res: Response) {
 async function SearchAllByUser(req: Request, res: Response) {
   const userId = res.locals.user.id;
   const notes = await notesServices.SearchAllByUser(userId);
-  res.send(notes);
+  res.status(200).send(notes);
 }
 
 async function DeleteById(req: Request, res: Response) {

@@ -11,7 +11,7 @@ async function CreateCredential(req: Request, res: Response) {
   } as CredentialType;
 
   await credentialServices.createAndVerifyNewByUser(credential);
-  res.send(201);
+  res.sendStatus(201);
 }
 
 async function SearchById(req: Request, res: Response) {
@@ -28,7 +28,7 @@ async function SearchById(req: Request, res: Response) {
 async function SearchAllByUser(req: Request, res: Response) {
   const userId = res.locals.user.id;
   const credentials = await credentialServices.SearchAllByUser(userId);
-  res.send(credentials);
+  res.status(200).send(credentials);
 }
 
 async function DeleteById(req: Request, res: Response) {

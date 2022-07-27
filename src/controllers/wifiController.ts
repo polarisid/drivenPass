@@ -10,7 +10,7 @@ async function CreateWifi(req: Request, res: Response) {
   } as WifiType;
 
   await wifiServices.createNew(wifi);
-  res.send(201);
+  res.sendStatus(201);
 }
 
 async function SearchById(req: Request, res: Response) {
@@ -24,7 +24,7 @@ async function SearchById(req: Request, res: Response) {
 async function SearchAllByUser(req: Request, res: Response) {
   const userId = res.locals.user.id;
   const wifi = await wifiServices.SearchAllByUser(userId);
-  res.send(wifi);
+  res.status(200).send(wifi);
 }
 
 async function DeleteById(req: Request, res: Response) {

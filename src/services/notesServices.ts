@@ -13,7 +13,6 @@ async function createAndVerifyNewByUser(note: NotesType) {
   );
   if (notesExists.length > 0)
     throw conflictError("Note name already exists in database");
-
   await notesRepositories.Insert(note);
   return;
 }

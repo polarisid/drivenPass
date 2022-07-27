@@ -16,7 +16,7 @@ async function CreateCard(req: Request, res: Response) {
   } as CardsType;
 
   await cardServices.createAndVerifyNewByUser(card);
-  res.send(201);
+  res.sendStatus(201);
 }
 
 async function SearchById(req: Request, res: Response) {
@@ -30,7 +30,7 @@ async function SearchById(req: Request, res: Response) {
 async function SearchAllByUser(req: Request, res: Response) {
   const userId = res.locals.user.id;
   const cards = await cardServices.SearchAllByUser(userId);
-  res.send(cards);
+  res.status(200).send(cards);
 }
 
 async function DeleteById(req: Request, res: Response) {
