@@ -20,6 +20,7 @@ async function createAndVerifyNewByUser(card: CardsType) {
   const encryptedCVV = cryptr.encrypt(card.cvv);
   await cardRepositories.Insert({
     ...card,
+    expirationDate: new Date(card.expirationDate),
     password: encryptedPassword,
     cvv: encryptedCVV,
   });
